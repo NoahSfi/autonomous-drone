@@ -12,11 +12,11 @@ Ideally we will be able to reconstruct a 3D map from this information, to help t
 
 | Name     | Surname | Github username | Role |
 | -------- | ------- | --------------- | ---- |
+| Clemence | Allard  | clemenceallard  |      |
+| Yanliu   | Li      |                 |      |
 | William  | Koch    | wak31415        |      |
 | Joshua   | Jacob   | joshuapjacob    |      |
 | Noah     | Sarfati | NoahSfi         |      |
-| Clemence | Allard  | clemenceallard  |      |
-| Yanliu   | Li      |                 |      |
 
 ## Structuring the Project
 
