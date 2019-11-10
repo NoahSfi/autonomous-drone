@@ -59,3 +59,4 @@ OPTIONAL: extrapolate movement of the object
 
 ### [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/)
 - mandatory reading for those working on depth estimation, starting p. 343: **Structure from motion**
+- https://docs.opencv.org/master/d4/d18/tutorial_sfm_scene_reconstruction.html
