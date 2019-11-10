@@ -35,21 +35,27 @@ This team will implement the intelligent features of the drone. Given the depth 
 Establish first connection to drone, learn how to use the SDK to control basic flight trajectories of the drone. 
 At this stage, camera data will not be evaluated.
 
-## 2. Measure distances with a webcam
+### 2. Measure distances with a webcam
 
 We will use a webcam to test the algorithm we write to obtain information on distances. The program should be able to detect flat surfaces and compute the distance of the camera to this surface. The surface should contain some sort of texture (not plain color).
 
-## 3. Construct 3D map
+### 3. Construct 3D map
 
 Use previous information to construct a 3D map, containing the coordinates of points. The algorithm should also be able to determine the relevance of points, removing them if the error is to large, or if there are not enough points to describe a potential object. This will ensure that no objects are detected that do not exist. 
 Figure out an efficient way to store and update this information. When the drone changes rooms for example, the dataset should be easily extendable to include the new data.
 
-## 4. Basic drone flight
+### 4. Basic drone flight
 
 The drone should now be able to utilize the 3D-map to fly in random directions - and change direction once it comes to close to a wall.
 
-## 5. Detecting moving objects
+### 5. Detecting moving objects
 
 We want to be able to distinguish static objects from moving ones. Once a moving object is detected, we want to obtain information on its location with respect to the drone (or in the 3d-map), as well as its velocity and direction.
 
 OPTIONAL: extrapolate movement of the object
+
+
+## Recommended Reading:
+
+### [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/)
+- mandatory reading for those working on depth estimation, starting p. 343: **Structure from motion**
