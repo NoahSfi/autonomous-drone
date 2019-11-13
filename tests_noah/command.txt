@@ -1,1 +1,1 @@
-g++ -std=c++17 opencv_test.cpp -o opencv_test2 `pkg-config --cflags --libs opencv4
+g++ -std=c++17 play_video.cpp -o play_video `pkg-config --cflags --libs opencv4`
