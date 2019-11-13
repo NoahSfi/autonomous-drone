@@ -7,7 +7,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
  //open the video file for reading
- VideoCapture cap("dogslider4kmsskateministry.mp4"); 
+//  VideoCapture cap("dogslider4kmsskateministry.mp4"); 
+VideoCapture cap(0);
 
  // if not success, exit program
  if (cap.isOpened() == false)  
@@ -16,6 +17,10 @@ int main(int argc, char* argv[])
   cin.get(); //wait for any key press
   return -1;
  }
+ double dWidth = cap.get(CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
+ double dHeight = cap.get(CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
+
+  cout << "Resolution of the video : " << dWidth << " x " << dHeight << endl;
 
  //Uncomment the following line if you want to start the video in the middle
  //cap.set(CAP_PROP_POS_MSEC, 300); 
