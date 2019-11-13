@@ -4,6 +4,7 @@
 using namespace cv;
 using namespace std;
 
+
 int main(int argc, char** argv)
 {
     // Read the image file
@@ -16,7 +17,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    String windowName = "The Guitar"; //Name of the window
+    String windowName = "The drone"; //Name of the window
 
     namedWindow(windowName); // Create a window
 
