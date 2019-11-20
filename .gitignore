@@ -1,3 +1,6 @@
+# Ignore .vscode configuration files
+.vscode/*
+
 # Prerequisites
 *.d
 
@@ -31,7 +34,6 @@
 *.out
 *.app
 
-**/.vscode
 /tests_noah/*
 
 # Exclude compiled binaries
