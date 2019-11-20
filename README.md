@@ -13,10 +13,38 @@ Ideally we will be able to reconstruct a 3D map from this information, to help t
 | Name     | Surname | Github username | Role |
 | -------- | ------- | --------------- | ---- |
 | Clemence | Allard  | clemenceallard  |      |
-| Yanliu   | Li      |                 |      |
+| Yanliu   | Li      | yanliu0408      |      |
 | William  | Koch    | wak31415        |      |
 | Joshua   | Jacob   | joshuapjacob    |      |
 | Noah     | Sarfati | NoahSfi         |      |
+
+## Installing OpenCV (Linux)
+
+You can skip this section if you already have a working version of OpenCv installed.
+
+### Required packages
+
+```bash
+$ sudo apt-get install build-essential
+$ sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+```
+
+### Installation
+
+```bash
+$ cd /opt
+$ git clone https://github.com/opencv/opencv.git
+$ cd opencv && mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_GENERATE_PKGCONFIG=ON ..
+$ make -j8                        # from build
+$ sudo make install               # from build
+$ ln -s /usr/local/include/opencv4/opencv2/ /usr/local/include/opencv2
+```
+
+### Testing the installation
+
+In your home directory, clone the directory and make the test file in `tests`.
 
 ## Structuring the Project
 
@@ -54,9 +82,18 @@ We want to be able to distinguish static objects from moving ones. Once a moving
 
 OPTIONAL: extrapolate movement of the object
 
-
 ## Recommended Reading:
 
-### [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/)
-- mandatory reading for those working on depth estimation, starting p. 343: **Structure from motion**
-- https://docs.opencv.org/master/d4/d18/tutorial_sfm_scene_reconstruction.html
+https://ardrone-autonomy.readthedocs.io/en/latest/
+
+### Depth Estimation
+
+[Computer Vision: Algorithms and Applications](http://szeliski.org/Book/)
+
+- for those working on depth estimation, starting p. 343: **Structure from motion**
+
+[SFM scene reconstruction](https://docs.opencv.org/master/d4/d18/tutorial_sfm_scene_reconstruction.html)
+
+[Calib3d](https://docs.opencv.org/master/d9/db7/tutorial_py_table_of_contents_calib3d.html)
+
+### Trajectory Planning
