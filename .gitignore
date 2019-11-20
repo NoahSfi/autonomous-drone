@@ -36,3 +36,7 @@
 
 .vscode
 /tests_noah/*
+
+# Exclude compiled binaries
+opencv_test
+main
