@@ -108,7 +108,7 @@ int ARDrone::open(const char *ardrone_addr)
     if (!initNavdata()) return 0;
 
     // Initialize Video
-    // if (!initVideo()) return 0;
+    if (!initVideo()) return 0;
 
     // Wait for updating state
     //msleep(500);
@@ -144,7 +144,7 @@ void ARDrone::close(void)
     if (!onGround()) landing();
 
     // Finalize video
-    // finalizeVideo();
+    finalizeVideo();
 
     // Finalize Navdata
     finalizeNavdata();

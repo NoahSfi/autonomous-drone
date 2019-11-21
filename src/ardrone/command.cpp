@@ -28,6 +28,7 @@
 // Description  : Initialize AT command.
 // Return value : SUCCESS: 1  FAILURE: 0
 // --------------------------------------------------------------------------
+
 int ARDrone::initCommand(void)
 {
     // Open the IP address and port
@@ -362,7 +363,7 @@ void ARDrone::setVideoRecord(bool activate)
     // AR.Drone 2.0
     if (version.major == ARDRONE_VERSION_2) {
         // Finalize video
-        // finalizeVideo();
+        finalizeVideo();
 
         // Enable/Disable video recording
         if (mutexCommand) pthread_mutex_lock(mutexCommand);
@@ -381,7 +382,7 @@ void ARDrone::setVideoRecord(bool activate)
         msleep(100);
 
         // Initialize video
-        // initVideo();
+        initVideo();
     }
 }
 

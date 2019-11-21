@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __HEADER_ARDRONE_LIB__
 #define __HEADER_ARDRONE_LIB__
 
@@ -975,7 +977,7 @@ public:
     virtual void close(void);
 
     // Get an image for OpenCV
-    // virtual cv::Mat* getImage(void);
+    virtual cv::Mat* getImage(void);
 
     // Get AR.Drone's firmware version
     virtual int getVersion(int *major = NULL, int *minor = NULL, int *revision = NULL);
@@ -1068,21 +1070,21 @@ protected:
     // Thread for Video
     pthread_t *threadVideo;
     pthread_mutex_t *mutexVideo;
-    //virtual void loopVideo(void);
-    //static void *runVideo(void *args) {
-    //    reinterpret_cast<ARDrone*>(args)->loopVideo();
-    //    return NULL;
-    //}
+    virtual void loopVideo(void);
+    static void *runVideo(void *args) {
+        reinterpret_cast<ARDrone*>(args)->loopVideo();
+        return NULL;
+    }
 
     // Initialize (internal)
     virtual int initCommand(void);
     virtual int initNavdata(void);
-    // virtual int initVideo(void);
+    virtual int initVideo(void);
 
     // Get informations (internal)
     virtual int getVersionInfo(void);
     virtual int getNavdata(void);
-    //virtual int getVideo(void);
+    virtual int getVideo(void);
     virtual int getConfig(void);
 
     // Send commands (internal)
@@ -1092,7 +1094,7 @@ protected:
     // Finalize (internal)
     virtual void finalizeCommand(void);
     virtual void finalizeNavdata(void);
-    //virtual void finalizeVideo(void);
+    virtual void finalizeVideo(void);
 };
 
 #ifdef _WIN32
