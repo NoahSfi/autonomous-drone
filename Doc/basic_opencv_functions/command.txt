@@ -1,1 +1,1 @@
-g++ -std=c++17 video.cpp -o video `pkg-config --cflags --libs opencv4`
+g++ -std=c++17 callback_function.cpp -o callback_function `pkg-config --cflags --libs opencv4`
