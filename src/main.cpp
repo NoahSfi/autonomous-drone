@@ -24,11 +24,12 @@ int main() {
     // if (!ardrone.update()) break;
 
     // Get an image
-    // cv:Mat *image = ardrone.getImage();
+    cv::Mat *image = ardrone.getImage();
 
     // Movement
-    // ardrone.takeoff()
-    // ardrone.landing();
+    ardrone.takeoff();
+    usleep(5000000);
+    ardrone.landing();
     // ardrone.move3D(vx, vy, vz, vr)
     // ardrone.onGround()
 
@@ -37,7 +38,7 @@ int main() {
     // ardrone.setCamera(++mode%4)
 
     // Display Image
-    // cv::imshow("camera", image);
+    cv::imshow("camera", image);
     
     ardrone.close();
     return 0;
