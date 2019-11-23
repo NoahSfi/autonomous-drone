@@ -20,16 +20,22 @@ int main()
        }
  
  VideoCapture capture(0);  
-    if (!capture.isOpened()){  
-    throw "Error when reading file";  
+    if ( !capture.isOpened() )  // if not success, exit program
+    {
+         cout << "Cannot open the web cam" << endl;
+         return -1;
     }
     namedWindow("window", 1);  
-    for (;;)
+    while (true)
      { 
        Mat image; 
-       capture >> image;  
-       if (image.empty())  
-       break; 
+       bool bSuccess = capture.read(image); // read a new frame from video
+
+         if (!bSuccess) //if not success, break loop
+        {
+             cout << "Cannot read a frame from video stream" << endl;
+             break;
+        }
  
       // Detect faces
       std::vector<Rect> faces;
@@ -38,7 +44,9 @@ int main()
       // Draw circles on the detected faces
       for( int i = 0; i < faces.size(); i++ )
       {
+        //Take the center of the face
         Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
+        //Draw an ellipse around
         ellipse( image, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
       }
        
