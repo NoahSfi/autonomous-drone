@@ -3,7 +3,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
    
 #include <iostream>
-#include <stdio.h>
+
    
 using namespace std;
 using namespace cv;
@@ -51,7 +51,11 @@ int main()
       }
        
   imshow( "Detected Face", image );
-  waitKey(1);  
+  if (waitKey(5) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+        {
+                cout << "esc key is pressed by user" << endl;
+                break; 
+        }
    }  
                 
      return 0;
