@@ -1,1 +1,1 @@
-g++ -std=c++17 tracking.cpp -o tracking.cpp `pkg-config --cflags --libs opencv4`
+g++ -std=c++17 face_detection.cpp -o face_detection `pkg-config --cflags --libs opencv4`
