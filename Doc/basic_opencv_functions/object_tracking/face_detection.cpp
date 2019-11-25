@@ -51,7 +51,7 @@ int main()
       }
        
   imshow( "Detected Face", image );
-  if (waitKey(5) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+  if (waitKey(1) == 27) //wait for 'esc' key press for 1ms. If 'esc' key is pressed, break loop
         {
                 cout << "esc key is pressed by user" << endl;
                 break; 
