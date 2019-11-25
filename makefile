@@ -1,5 +1,5 @@
 CXX           = g++
-CXXFLAGS      = -O2 -Wall -D__STDC_CONSTANT_MACROS 
+CXXFLAGS      = -O2 -Wall -D__STDC_CONSTANT_MACROS  -g
 
 LIBS          = -lm                     \
                 -lpthread               \
@@ -18,7 +18,7 @@ OBJS          = ./src/ardrone/ardrone.o \
                 ./src/ardrone/tcp.o     \
                 ./src/ardrone/navdata.o \
                 ./src/ardrone/version.o \
-                ./src/ardrone/video.o   \
+                ./src/video.o           \
                 ./src/main.o
 
 PROGRAM       = test.a

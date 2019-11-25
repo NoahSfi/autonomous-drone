@@ -977,7 +977,7 @@ public:
     virtual void close(void);
 
     // Get an image for OpenCV
-    virtual cv::Mat* getImage(void);
+    virtual cv::Mat getImage(void);
 
     // Get AR.Drone's firmware version
     virtual int getVersion(int *major = NULL, int *minor = NULL, int *revision = NULL);
@@ -1026,7 +1026,7 @@ protected:
     unsigned long int seq;
 
     // Camera image
-    cv::Mat *img;
+    cv::Mat img;
 
     // Sockets
     UDPSocket sockCommand;

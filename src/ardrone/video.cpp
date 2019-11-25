@@ -35,7 +35,6 @@
 // Description  : Initialize video.
 // Return value : SUCCESS: 1  FAILURE: 0
 // --------------------------------------------------------------------------
-
 int ARDrone::initVideo(void)
 {
     // AR.Drone 2.0
@@ -67,15 +66,15 @@ int ARDrone::initVideo(void)
         }
 
         // Allocate video frames and a buffer
-        pFrame = av_frame_alloc();
-        pFrameBGR = av_frame_alloc();
-        bufferBGR = (uint8_t*)av_mallocz(avpicture_get_size(AV_PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height) * sizeof(uint8_t));
+        pFrame = avcodec_alloc_frame();
+        pFrameBGR = avcodec_alloc_frame();
+        bufferBGR = (uint8_t*)av_mallocz(avpicture_get_size(PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height) * sizeof(uint8_t));
 
         // Assign appropriate parts of buffer to image planes in pFrameBGR
-        avpicture_fill((AVPicture*)pFrameBGR, bufferBGR, AV_PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height);
+        avpicture_fill((AVPicture*)pFrameBGR, bufferBGR, PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height);
 
         // Convert it to BGR
-        pConvertCtx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_BGR24, SWS_SPLINE, NULL, NULL, NULL);
+        pConvertCtx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, PIX_FMT_BGR24, SWS_SPLINE, NULL, NULL, NULL);
     }
     // AR.Drone 1.0
     else {
@@ -91,19 +90,18 @@ int ARDrone::initVideo(void)
         pCodecCtx->height = 240;
 
         // Allocate a buffer
-        bufferBGR = (uint8_t*)av_mallocz(avpicture_get_size(AV_PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height));
+        bufferBGR = (uint8_t*)av_mallocz(avpicture_get_size(PIX_FMT_BGR24, pCodecCtx->width, pCodecCtx->height));
     }
 
-    // Allocate an Image
-    //img = cvCreateImage(cvSize(pCodecCtx->width, (pCodecCtx->height == 368) ? 360 : pCodecCtx->height), IPL_DEPTH_8U, 3);
-    *img = cv::Mat(cv::Size(pCodecCtx->width, (pCodecCtx->height == 368) ? 360360 : pCodecCtx->height), CV_8UC3);
+    // Allocate an IplImage
+    img = cvCreateImage(cvSize(pCodecCtx->width, (pCodecCtx->height == 368) ? 360 : pCodecCtx->height), IPL_DEPTH_8U, 3);
     if (!img) {
         CVDRONE_ERROR("cvCreateImage() was failed. (%s, %d)\n", __FILE__, __LINE__);
         return 0;
     }
 
     // Clear the image
-    img->zeros(pCodecCtx->height, pCodecCtx->width, CV_8UC3);
+    cvZero(img);
 
     // Create a mutex
     mutexVideo = new pthread_mutex_t;
@@ -158,7 +156,7 @@ int ARDrone::getVideo(void)
                 sws_scale(pConvertCtx, (const uint8_t* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height, pFrameBGR->data, pFrameBGR->linesize);
                 if (mutexVideo) pthread_mutex_unlock(mutexVideo);
 
-                // Free the packet and break
+                // Free the packet and break immidiately
                 av_free_packet(&packet);
                 return 1;
                 //break;
@@ -195,7 +193,7 @@ int ARDrone::getVideo(void)
 // Description  : Get an image from the AR.Drone's camera.
 // Return value : Pointer to an IplImage (OpenCV image)
 // --------------------------------------------------------------------------
-cv::Mat* ARDrone::getImage(void)
+IplImage* ARDrone::getImage(void)
 {
     // There is no image
     if (!img) return NULL;
@@ -206,21 +204,21 @@ cv::Mat* ARDrone::getImage(void)
     // AR.Drone 2.0
     if (version.major == ARDRONE_VERSION_2) {
         // Copy the frame to the IplImage
-        img = Mat(pFrameBGR->data[0], pCodecCtx->width * ((pCodecCtx->height == 368) ? 360 : pCodecCtx->height) * sizeof(uint8_t) * 3);
+        memcpy(img->imageData, pFrameBGR->data[0], pCodecCtx->width * ((pCodecCtx->height == 368) ? 360 : pCodecCtx->height) * sizeof(uint8_t) * 3);
     }
     // AR.Drone 1.0
-/*     else {
-        // If the sizes of buffer and IplImage are different
+    else {
+        // If the sizes of buffer and IplImage are differnt
         if (pCodecCtx->width != img->width || pCodecCtx->height != img->height) {
             // Resize the image to 320x240
-            cv::Mat *small_img = cvCreateImageHeader(cvSize(pCodecCtx->width, pCodecCtx->height), IPL_DEPTH_8U, 3);
+            IplImage *small_img = cvCreateImageHeader(cvSize(pCodecCtx->width, pCodecCtx->height), IPL_DEPTH_8U, 3);
             small_img->imageData = (char*)bufferBGR;
             cvResize(small_img, img, CV_INTER_CUBIC);
             cvReleaseImageHeader(&small_img);
         }
         // For 320x240 image, just copy it
         else memcpy(img->imageData, bufferBGR, pCodecCtx->width * pCodecCtx->height * sizeof(uint8_t) * 3);
-    } */
+    }
 
     // Disable mutex lock
     if (mutexVideo) pthread_mutex_unlock(mutexVideo);
@@ -250,10 +248,10 @@ void ARDrone::finalizeVideo(void)
         mutexVideo = NULL;
     }
 
-    // Release the Image
+    // Release the IplImage
     if (img) {
-        img->release();
-        // img = NULL;
+        cvReleaseImage(&img);
+        img = NULL;
     }
 
     // AR.Drone 2.0

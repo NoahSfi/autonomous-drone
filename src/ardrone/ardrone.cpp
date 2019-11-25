@@ -99,15 +99,18 @@ int ARDrone::open(const char *ardrone_addr)
 
     // Get version information
     if (!getVersionInfo()) return 0;
-    printf("AR.Drone Ver. %d.%d.%d\n", version.major, version.minor, version.revision);
+    printf("AR Drone Version %d.%d.%d\n", version.major, version.minor, version.revision);
 
     // Initialize AT command
+    printf("Initializing AT Command...");
     if (!initCommand()) return 0;
 
     // Initialize Navdata
+    printf("Initializing Navdata...");
     if (!initNavdata()) return 0;
 
     // Initialize Video
+    printf("Initializing Video...");
     if (!initVideo()) return 0;
 
     // Wait for updating state
