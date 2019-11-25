@@ -39,3 +39,6 @@
 # Exclude compiled binaries
 opencv_test
 main
+
+# Exclude .DS_Store
+.DS_Store
