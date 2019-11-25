@@ -1,5 +1,5 @@
 CXX           = g++
-CXXFLAGS      = -O2 -Wall -D__STDC_CONSTANT_MACROS  -g
+CXXFLAGS      = -O2 -Wall -D__STDC_CONSTANT_MACROS
 
 LIBS          = -lm                     \
                 -lpthread               \
